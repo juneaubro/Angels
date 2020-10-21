@@ -11,3 +11,8 @@ angel:
 - if in the dark it will move towards you
 - flashlights will stop it
 - sometimes it will still be moving when you look at it, then it will disappear
+
+45 - downright
+-45 - downleft
+135 - upright
+-135 - upleft
