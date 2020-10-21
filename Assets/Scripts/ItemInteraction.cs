@@ -56,11 +56,11 @@ public class ItemInteraction : MonoBehaviour
         {
             try
             {
-                tntExplode3.SetBool("explode", true);
-                tntExplode4.SetBool("explode", true);
+                tntExplode3.SetBool("longerExplode", true);
+                tntExplode4.SetBool("longerExplode", true);
 
-                Destroy(tnt3, 3);
-                Destroy(tnt4, 3);
+                Destroy(tnt3, 5);
+                Destroy(tnt4, 5);
             }
             catch (Exception e)
             {

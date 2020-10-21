@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private Vector2 movement;
-    private Vector2 newPos;
     private Quaternion newRotation;
 
     const float FACING_RIGHT_DIR = 90f;
@@ -62,8 +61,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // LOL fixedDeltaTime vs deltaTime?
+    {                                           // normalized fixes moving diagonally. makes speed constant
+        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // LOL fixedDeltaTime vs deltaTime?
     }
 
     void PlayerAndFlashlightHandling()
@@ -82,11 +81,9 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxisRaw("Vertical") > 0.1) // up
         {
-            //newPos = new Vector2();
             newRotation = Quaternion.Euler(fCam.transform.rotation.x, fCam.transform.rotation.y, FACING_UP_DIR);
             flashlight.transform.position = new Vector3(fCam_up.transform.position.x, fCam_up.transform.position.y, transform.position.z);
             fCam.transform.rotation = newRotation;
-            //fCam.transform.position = newPos;
         }
         if (Input.GetAxisRaw("Vertical") < -0.1) // down
         {
@@ -118,10 +115,6 @@ public class PlayerController : MonoBehaviour
             flashlight.transform.position = new Vector3(fCam_upleft.transform.position.x, fCam_upleft.transform.position.y, transform.position.z);
             fCam.transform.rotation = newRotation;
         }
-        //if (flashlight.transform.position != fCam.transform.position) instead i put it above
-        //{
-        //    flashlight.transform.position = new Vector3(fCam.transform.position.x, fCam.transform.position.y, transform.position.z);
-        //}
         if (flashlight.transform.rotation != fCam.transform.rotation)
         {
             flashlight.transform.rotation = newRotation;
