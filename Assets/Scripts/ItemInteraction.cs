@@ -10,17 +10,24 @@ public class ItemInteraction : MonoBehaviour
     public GameObject tnt2;
     public GameObject tnt3;
     public GameObject tnt4;
+    public GameObject keyForLockedRoom;
+    public GameObject keyForExitDoor;
+    public GameObject keyDoor;
+    public GameObject exitDoor;
+    public GameObject roomKeyText;
+    public GameObject exitKeyText;
+    public GameObject angel;
+    public GameObject bigLight;
+    public GameObject winText;
+    public GameObject fL;
 
     public Animator tntExplode1;
     public Animator tntExplode2;
     public Animator tntExplode3;
     public Animator tntExplode4;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private bool hasRoomKey;
+    private bool hasExitKey;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -66,6 +73,44 @@ public class ItemInteraction : MonoBehaviour
             {
                 Debug.Log(e.Message);
             }
+        }
+        if(col.name == "KeyForLockedRoom")
+        {
+            try
+            {
+                Destroy(keyForLockedRoom);
+                hasRoomKey = true;
+                roomKeyText.SetActive(true);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+        }
+        if(col.name == "KeyDoor" && hasRoomKey == true)
+        {
+            keyDoor.SetActive(false);
+        }
+        if(col.name == "KeyForExitDoor")
+        {
+            try
+            {
+                Destroy(keyForExitDoor);
+                hasExitKey = true;
+                exitDoor.SetActive(true);
+                exitKeyText.SetActive(true);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+        }
+        if(col.name == "ExitDoor" && hasExitKey == true)
+        {
+            winText.SetActive(true);
+            angel.SetActive(false);
+            bigLight.SetActive(true);
+            fL.SetActive(false);
         }
     }
 }

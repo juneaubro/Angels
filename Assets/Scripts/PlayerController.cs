@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 movement;
     private Quaternion newRotation;
+    private int randNum;
 
     const float FACING_RIGHT_DIR = 90f;
     const float FACING_LEFT_DIR = -90f;
@@ -119,5 +120,16 @@ public class PlayerController : MonoBehaviour
         {
             flashlight.transform.rotation = newRotation;
         }
+        randNum = Random.Range(0, 700);
+        if (randNum == 70)
+        {
+            flashlight.SetActive(false);
+            Invoke("FlashlightOn", Random.Range(0.1f, 0.5f));
+        }
+    }
+
+    void FlashlightOn()
+    {
+        flashlight.SetActive(true);
     }
 }
