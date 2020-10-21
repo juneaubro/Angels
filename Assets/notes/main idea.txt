@@ -1,0 +1,13 @@
+puzzle ideas:
+- catch the weeping angel slipping the curse
+- pot on pressure plate
+- door opening lever time trial
+
+unique mechanic:
+- after a while or a booby trapped room will release an angel	
+
+angel: 
+- will stop moving when looking at it
+- if in the dark it will move towards you
+- flashlights will stop it
+- sometimes it will still be moving when you look at it, then it will disappear
