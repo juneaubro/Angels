@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         {
             flashlight.transform.rotation = newRotation;
         }
-        randNum = Random.Range(0, 1000);
+        randNum = Random.Range(0, 1500);
         if (randNum == 70)
         {
                 flashlight.SetActive(false);

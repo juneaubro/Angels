@@ -9,7 +9,7 @@ public class AngelController : MonoBehaviour
     private Animator anim;
     private Transform target;
     [SerializeField] // editor
-    private float speed = 3.5f;
+    private float speed = 3.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +48,7 @@ public class AngelController : MonoBehaviour
         if (col.name == "Flashlight")
         {
             speed = 0f;
+            CancelInvoke("ResetSpeed");
         }
     }
 
@@ -55,12 +56,15 @@ public class AngelController : MonoBehaviour
     {
         if(col.name == "Flashlight")
         {
-            Invoke("ResetSpeed", (Random.Range(0.2f, 5f)));
+            if (Random.Range(0, 2) > 0)
+                Invoke("ResetSpeed", (Random.Range(1.5f, 3f)));
+            else
+                speed = 3.3f;
         }
     }
 
     public void ResetSpeed()
     {
-        speed = 3.5f;
+        speed = 3.3f;
     }
 }

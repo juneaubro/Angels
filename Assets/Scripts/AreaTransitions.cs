@@ -9,6 +9,7 @@ public class AreaTransitions : MonoBehaviour
     public GameObject aMusic;
     public GameObject iMusic;
     public GameObject eMusic;
+    public GameObject xploSFX;
     private CameraController cam;
 
     public Vector2 newMinPos;
@@ -41,11 +42,18 @@ public class AreaTransitions : MonoBehaviour
                     angel.SetActive(true);
                     aMusic.SetActive(true);
                     iMusic.SetActive(false);
+                    xploSFX.SetActive(true);
+                    Invoke("DisXploSFX",2);
                 }
             } catch (Exception e)
             {
                 Debug.Log(e.Message);
             }
         }
+    }
+
+    void DisXploSFX()
+    {
+        xploSFX.SetActive(false);
     }
 }
