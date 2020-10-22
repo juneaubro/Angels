@@ -1,38 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    public float moveSpeed = 3f;
-    public GameObject fCam;
-    public GameObject fCam_down;
-    public GameObject fCam_up;
-    public GameObject fCam_left;
-    public GameObject fCam_right;
-    public GameObject fCam_downright;
-    public GameObject fCam_downleft;
-    public GameObject fCam_upright;
-    public GameObject fCam_upleft;
-    public GameObject flashlight;
-
-    private Rigidbody2D rb;
-    private Animator animator;
-
-    private Vector2 movement;
-    private Quaternion newRotation;
-    private int randNum;
-
-    const float FACING_RIGHT_DIR = 90f;
-    const float FACING_LEFT_DIR = -90f;
-    const float FACING_UP_DIR = 180f;
-    const float FACING_DOWN_DIR = 0f;
-    const float FACING_DOWNRIGHT_DIR = 45f;
-    const float FACING_DOWNLEFT_DIR = -45f;
-    const float FACING_UPRIGHT_DIR = 135f;
-    const float FACING_UPLEFT_DIR = -135f;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,6 +25,16 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
             animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+
+            stepSFX.SetActive(true);
+        } else
+        {
+            stepSFX.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Application.LoadLevel(Application.loadedLevel); // for now
         }
     }
 
@@ -120,11 +102,11 @@ public class PlayerController : MonoBehaviour
         {
             flashlight.transform.rotation = newRotation;
         }
-        randNum = Random.Range(0, 700);
+        randNum = Random.Range(0, 1000);
         if (randNum == 70)
         {
-            flashlight.SetActive(false);
-            Invoke("FlashlightOn", Random.Range(0.1f, 0.5f));
+                flashlight.SetActive(false);
+                Invoke("FlashlightOn", Random.Range(0.1f, 1f));
         }
     }
 
@@ -132,4 +114,33 @@ public class PlayerController : MonoBehaviour
     {
         flashlight.SetActive(true);
     }
+
+    public float moveSpeed = 3f;
+    public GameObject fCam;
+    public GameObject fCam_down;
+    public GameObject fCam_up;
+    public GameObject fCam_left;
+    public GameObject fCam_right;
+    public GameObject fCam_downright;
+    public GameObject fCam_downleft;
+    public GameObject fCam_upright;
+    public GameObject fCam_upleft;
+    public GameObject flashlight;
+    public GameObject stepSFX;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+
+    private Vector2 movement;
+    private Quaternion newRotation;
+    private int randNum;
+
+    const float FACING_RIGHT_DIR = 90f;
+    const float FACING_LEFT_DIR = -90f;
+    const float FACING_UP_DIR = 180f;
+    const float FACING_DOWN_DIR = 0f;
+    const float FACING_DOWNRIGHT_DIR = 45f;
+    const float FACING_DOWNLEFT_DIR = -45f;
+    const float FACING_UPRIGHT_DIR = 135f;
+    const float FACING_UPLEFT_DIR = -135f;
 }

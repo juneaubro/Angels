@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AreaTransitions : MonoBehaviour
 {
+    public GameObject angel;
+    public GameObject aMusic;
+    public GameObject iMusic;
+    public GameObject eMusic;
     private CameraController cam;
 
     public Vector2 newMinPos;
@@ -26,9 +31,21 @@ public class AreaTransitions : MonoBehaviour
     {
         if(col.tag == "Player")
         {
-            cam.minPos = newMinPos;
-            cam.maxPos = newMaxPos;
-            col.transform.position += movePlayer;
+            try
+            {
+                cam.minPos = newMinPos;
+                cam.maxPos = newMaxPos;
+                col.transform.position += movePlayer;
+                if (eMusic.activeInHierarchy == false) // eMusic.SetActive(false) no work
+                {
+                    angel.SetActive(true);
+                    aMusic.SetActive(true);
+                    iMusic.SetActive(false);
+                }
+            } catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
     }
 }

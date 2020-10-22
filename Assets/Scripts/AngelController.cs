@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AngelController : MonoBehaviour
 {
+    public GameObject weepSFX;
+
     private Animator anim;
     private Transform target;
     [SerializeField] // editor
@@ -32,9 +34,12 @@ public class AngelController : MonoBehaviour
             anim.SetFloat("lastMoveX", (target.position.x - transform.position.x));
             anim.SetFloat("lastMoveY", (target.position.y - transform.position.y));
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+
+            weepSFX.SetActive(true);
         } else
         {
             anim.SetBool("isMoving", false);
+            weepSFX.SetActive(false);
         }
     }
 
