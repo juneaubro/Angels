@@ -58,8 +58,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -104,6 +106,10 @@ ScriptsOnlyBuild:
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -506,7 +512,7 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
-      Hash: ef84ef65808b977c331a09c228b53c52
+      Hash: 54d945d8ac5e098c8d081048fe8e1560
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ItemInteraction
@@ -866,7 +872,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 7f44492a7671170267eec775b2fa7f6c
+      Hash: 7387ae5f5f0c986ccee539a69c8e1ffe
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -884,7 +890,7 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: 66ac830165705f65470497d1d03cd883
+      Hash: 1e1ebdd60d426382b57626ffd4f54a42
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AreaTransitions
@@ -920,7 +926,7 @@ ScriptsOnlyBuild:
     className: LiftGammaGain
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+      Hash: 208eb8cd2ca96457420fcf1c482f077b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AngelController
@@ -1131,4 +1137,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/Demo.unity
-  playerPath: C:/Users/juneau/Documents/GitHub/angels build/Angels.exe
+  playerPath: C:/Users/juneau/Documents/GitHub/AngelsBuildOct21_2020/Angels.exe

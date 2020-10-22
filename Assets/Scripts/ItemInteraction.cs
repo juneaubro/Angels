@@ -6,6 +6,44 @@ using UnityEngine;
 
 public class ItemInteraction : MonoBehaviour
 {
+    public GameObject block;
+    public GameObject tnt1;
+    public GameObject tnt2;
+    public GameObject tnt3;
+    public GameObject tnt4;
+    public GameObject keyForLockedRoom;
+    public GameObject keyForExitDoor;
+    public GameObject keyDoor;
+    public GameObject exitDoor;
+    public GameObject roomKeyText;
+    public GameObject bigRoomKeyText;
+    public GameObject bigExitKeyText;
+    public GameObject exitKeyText;              // should probably move this stuff to thier own script. because what would happen when I make level 2 on another scene?
+    public GameObject angel;                    // Ill have all this stuff that isnt being used :/
+    public GameObject bigLight;
+    public GameObject winText;
+    public GameObject fL;
+    public GameObject eMusic;
+    public GameObject aMusic;
+    public GameObject iMusic;
+    public GameObject buttonSFX;
+    public GameObject explosionSFX;
+    public GameObject KeyDoorBlocker;
+    public GameObject keySFX;
+    public GameObject doorSFX;
+    public GameObject weepSFX;
+    public GameObject footSFX;
+    public GameObject normalCanvas;
+    public GameObject deathCanvas;
+
+    public Animator tntExplode1;
+    public Animator tntExplode2;
+    public Animator tntExplode3;
+    public Animator tntExplode4;
+
+    private bool hasRoomKey;
+    private bool hasExitKey;
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.name == "tntTrigger")
@@ -133,11 +171,22 @@ public class ItemInteraction : MonoBehaviour
                 Destroy(fL);
                 eMusic.SetActive(true);
                 aMusic.SetActive(false);
+                weepSFX.SetActive(false);
             }
             catch
             {
 
             }
+        }
+        if(col.name == "Angel")
+        {
+            normalCanvas.SetActive(false);
+            deathCanvas.SetActive(true);
+            iMusic.SetActive(false);
+            aMusic.SetActive(false);
+            weepSFX.SetActive(false);
+            Destroy(footSFX);
+            Destroy(angel);
         }
     }
 
@@ -178,43 +227,4 @@ public class ItemInteraction : MonoBehaviour
     {
         doorSFX.SetActive(false);
     }
-
-    void Dead()
-    {
-        Application.LoadLevel(Application.loadedLevel);
-    }
-
-    public GameObject block;
-    public GameObject tnt1;
-    public GameObject tnt2;
-    public GameObject tnt3;
-    public GameObject tnt4;
-    public GameObject keyForLockedRoom;
-    public GameObject keyForExitDoor;
-    public GameObject keyDoor;
-    public GameObject exitDoor;
-    public GameObject roomKeyText;
-    public GameObject bigRoomKeyText;
-    public GameObject bigExitKeyText;
-    public GameObject exitKeyText;              // should probably move this stuff to thier own script. because what would happen when I make level 2 on another scene?
-    public GameObject angel;                    // Ill have all this stuff that isnt being used :/
-    public GameObject bigLight;
-    public GameObject winText;
-    public GameObject fL;
-    public GameObject eMusic;
-    public GameObject aMusic;
-    public GameObject buttonSFX;
-    public GameObject explosionSFX;
-    public GameObject KeyDoorBlocker;
-    public GameObject keySFX;
-    public GameObject doorSFX;
-
-    public Animator tntExplode1;
-    public Animator tntExplode2;
-    public Animator tntExplode3;
-    public Animator tntExplode4;
-
-    private bool hasRoomKey;
-    private bool hasExitKey;
-
 }

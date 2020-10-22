@@ -1,10 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float moveSpeed = 3f;
+    public GameObject fCam;
+    public GameObject fCam_down;
+    public GameObject fCam_up;
+    public GameObject fCam_left;
+    public GameObject fCam_right;
+    public GameObject fCam_downright;
+    public GameObject fCam_downleft;
+    public GameObject fCam_upright;
+    public GameObject fCam_upleft;
+    public GameObject flashlight;
+    public GameObject stepSFX;
+    public GameObject dCanvas;
+    public GameObject iText;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+
+    private Vector2 movement;
+    private Quaternion newRotation;
+    private int randNum;
+
+    const float FACING_RIGHT_DIR = 90f;
+    const float FACING_LEFT_DIR = -90f;
+    const float FACING_UP_DIR = 180f;
+    const float FACING_DOWN_DIR = 0f;
+    const float FACING_DOWNRIGHT_DIR = 45f;
+    const float FACING_DOWNLEFT_DIR = -45f;
+    const float FACING_UPRIGHT_DIR = 135f;
+    const float FACING_UPLEFT_DIR = -135f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -12,8 +42,16 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
+        Invoke("DelIText", 5);
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Application.LoadLevel(Application.loadedLevel); // for now
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -31,11 +69,6 @@ public class PlayerController : MonoBehaviour
         {
             stepSFX.SetActive(false);
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Application.LoadLevel(Application.loadedLevel); // for now
-        }
     }
 
     void LateUpdate()
@@ -44,8 +77,10 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {                                           // normalized fixes moving diagonally. makes speed constant
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // LOL fixedDeltaTime vs deltaTime?
+    {   if (dCanvas.activeInHierarchy == false)
+        {    // normalized fixes moving diagonally. makes speed constant
+            rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // LOL fixedDeltaTime vs deltaTime?
+        }
     }
 
     void PlayerAndFlashlightHandling()
@@ -115,32 +150,8 @@ public class PlayerController : MonoBehaviour
         flashlight.SetActive(true);
     }
 
-    public float moveSpeed = 3f;
-    public GameObject fCam;
-    public GameObject fCam_down;
-    public GameObject fCam_up;
-    public GameObject fCam_left;
-    public GameObject fCam_right;
-    public GameObject fCam_downright;
-    public GameObject fCam_downleft;
-    public GameObject fCam_upright;
-    public GameObject fCam_upleft;
-    public GameObject flashlight;
-    public GameObject stepSFX;
-
-    private Rigidbody2D rb;
-    private Animator animator;
-
-    private Vector2 movement;
-    private Quaternion newRotation;
-    private int randNum;
-
-    const float FACING_RIGHT_DIR = 90f;
-    const float FACING_LEFT_DIR = -90f;
-    const float FACING_UP_DIR = 180f;
-    const float FACING_DOWN_DIR = 0f;
-    const float FACING_DOWNRIGHT_DIR = 45f;
-    const float FACING_DOWNLEFT_DIR = -45f;
-    const float FACING_UPRIGHT_DIR = 135f;
-    const float FACING_UPLEFT_DIR = -135f;
+    void DelIText()
+    {
+        iText.SetActive(false);
+    }
 }
