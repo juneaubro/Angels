@@ -16,3 +16,15 @@ angel:
 -45 - downleft
 135 - upright
 -135 - upleft
+
+level 2 idea:
+- maze :)
+
+Maze:
+- 
+
+
+
+Last thing I was wokring on:
+
+Stamina system

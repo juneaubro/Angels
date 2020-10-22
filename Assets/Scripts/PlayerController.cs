@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    public float moveSpeed = 2.5f;
+    public float sprintSpeed = 5f;
     public GameObject fCam;
     public GameObject fCam_down;
     public GameObject fCam_up;
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     private Quaternion newRotation;
     private int randNum;
+    private float dTimeCount;
+    private bool isTired;
+    private bool isRunning;
 
     const float FACING_RIGHT_DIR = 90f;
     const float FACING_LEFT_DIR = -90f;
@@ -69,6 +73,14 @@ public class PlayerController : MonoBehaviour
         {
             stepSFX.SetActive(false);
         }
+
+        if (dTimeCount > 1) // people with higher fps just didnt have a flashlight lmao or i could have just put this in fixed update i think. possibly has the same result
+        {
+            FlashlightFlicker();
+        } else
+        {
+            dTimeCount += Time.deltaTime;
+        }   
     }
 
     void LateUpdate()
@@ -77,9 +89,35 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   if (dCanvas.activeInHierarchy == false)
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && dCanvas.activeInHierarchy == false && StaminaScript.instance.staminaBar.value > 0)
         {    // normalized fixes moving diagonally. makes speed constant
-            rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // LOL fixedDeltaTime vs deltaTime?
+
+            if (StaminaScript.instance.staminaBar.value > 20 && isRunning == false && isTired == false)
+            {
+                StaminaScript.instance.UseStamina(20f);
+                isRunning = true;
+            }
+
+            if (isRunning == true)
+            {
+                StaminaScript.instance.UseStamina(1f);
+                rb.MovePosition(rb.position + movement.normalized * sprintSpeed * Time.fixedDeltaTime);
+            }
+
+            if (StaminaScript.instance.staminaBar.value == 0)
+                isTired = true;
+
+            if (isTired == true)
+                rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+
+            if (StaminaScript.instance.staminaBar.value >= 20)
+                isTired = false;
+        } 
+        else if(dCanvas.activeInHierarchy == false )
+        {
+            rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+            isRunning = false;
         }
     }
 
@@ -137,12 +175,17 @@ public class PlayerController : MonoBehaviour
         {
             flashlight.transform.rotation = newRotation;
         }
-        randNum = Random.Range(0, 1500);
-        if (randNum == 70)
+    }
+
+    void FlashlightFlicker()
+    {
+        randNum = Random.Range(0, 10);
+        if (randNum == 1)
         {
-                flashlight.SetActive(false);
-                Invoke("FlashlightOn", Random.Range(0.1f, 1f));
+            flashlight.SetActive(false);
+            Invoke("FlashlightOn", Random.Range(0.05f, 1f));
         }
+        dTimeCount = 0;
     }
 
     void FlashlightOn()
