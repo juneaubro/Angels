@@ -46,15 +46,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    [System.Obsolete]
     void Update()
     {
         Invoke("DelIText", 5);
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Application.LoadLevel(Application.loadedLevel); // for now
-        }
 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -80,7 +74,7 @@ public class PlayerController : MonoBehaviour
         } else
         {
             dTimeCount += Time.deltaTime;
-        }   
+        }
     }
 
     void LateUpdate()
@@ -90,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && dCanvas.activeInHierarchy == false && StaminaScript.instance.staminaBar.value > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && dCanvas.activeInHierarchy == false && StaminaScript.instance.staminaBar.value > 0 && (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1))
         {    // normalized fixes moving diagonally. makes speed constant
 
             if (StaminaScript.instance.staminaBar.value > 20 && isRunning == false && isTired == false)

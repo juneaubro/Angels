@@ -10,7 +10,7 @@ public class StaminaScript : MonoBehaviour
     private float maxStamina = 150f;
     private float currentStamina;
 
-    private WaitForSeconds regenTick = new WaitForSeconds(0.05f);
+    private WaitForSeconds regenTick = new WaitForSeconds(0.035f);
 
     private Coroutine regen;
 
@@ -46,7 +46,7 @@ public class StaminaScript : MonoBehaviour
 
     private IEnumerator RegenStamina()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         while(currentStamina < maxStamina)
         {

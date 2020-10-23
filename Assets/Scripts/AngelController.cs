@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +7,18 @@ public class AngelController : MonoBehaviour
 {
     public GameObject weepSFX;
 
+    private AIPath path;
     private Animator anim;
     private Transform target;
     [SerializeField] // editor
-    private float speed = 3.75f;
+    private float speed = 3.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         target = FindObjectOfType<PlayerController>().transform; // our location i think :/
+        path = GetComponent<AIPath>();
     }
 
     // Update is called once per frame
@@ -33,22 +36,21 @@ public class AngelController : MonoBehaviour
             anim.SetFloat("Vertical", (target.position.y - transform.position.y));
             anim.SetFloat("lastMoveX", (target.position.x - transform.position.x));
             anim.SetFloat("lastMoveY", (target.position.y - transform.position.y));
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
 
-            weepSFX.SetActive(true);
-        } else
+        }
+        else
         {
             anim.SetBool("isMoving", false);
             weepSFX.SetActive(false);
         }
     }
-
     private void OnTriggerStay2D(Collider2D col)
     {
         if (col.name == "Flashlight")
         {
-            speed = 0f;
-            //CancelInvoke("ResetSpeed");
+            path.maxSpeed = 0;
+            speed = 0;
         }
     }
 
@@ -56,17 +58,9 @@ public class AngelController : MonoBehaviour
     {
         if (col.name == "Flashlight")
         {
-            //if (Random.Range(0, 2) > 0)
-            //    Invoke("ResetSpeed", (Random.Range(1.5f, 3f)));
-            //else
-            //    speed = 3.3f;
-
-            speed = 3.75f;
+            path.maxSpeed = 3.5f;
+            speed = 3.5f;
+            weepSFX.SetActive(true);
         }
     }
-
-    //public void ResetSpeed()
-    //{
-    //    speed = 3.3f;
-    //}
 }

@@ -27,4 +27,5 @@ Maze:
 
 Last thing I was wokring on:
 
-Stamina system
+Stamina system - done
+could have a battery system like stamina for the flashlight

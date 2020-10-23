@@ -22,6 +22,9 @@ public class ItemInteraction : MonoBehaviour
     public GameObject angel;                    // Ill have all this stuff that isnt being used :/
     public GameObject bigLight;
     public GameObject winText;
+    public GameObject winMenuBtn;
+    public GameObject winQuitBtn;
+    public GameObject winRetryBtn;
     public GameObject fL;
     public GameObject eMusic;
     public GameObject aMusic;
@@ -35,6 +38,7 @@ public class ItemInteraction : MonoBehaviour
     public GameObject footSFX;
     public GameObject normalCanvas;
     public GameObject deathCanvas;
+    public GameObject noteText;
 
     public Animator tntExplode1;
     public Animator tntExplode2;
@@ -46,6 +50,13 @@ public class ItemInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if(col.name == "chest")
+        {
+            noteText.SetActive(true);
+
+            Invoke("DisableNoteText", 8);
+        }
+
         if (col.name == "tntTrigger")
         {
             try
@@ -172,13 +183,16 @@ public class ItemInteraction : MonoBehaviour
                 eMusic.SetActive(true);
                 aMusic.SetActive(false);
                 weepSFX.SetActive(false);
+                winMenuBtn.SetActive(true);
+                winQuitBtn.SetActive(true);
+                winRetryBtn.SetActive(true);
             }
             catch
             {
 
             }
         }
-        if(col.name == "Angel")
+        if (col.name == "Angel")
         {
             normalCanvas.SetActive(false);
             deathCanvas.SetActive(true);
@@ -226,5 +240,10 @@ public class ItemInteraction : MonoBehaviour
     void DisableDoorSFX()
     {
         doorSFX.SetActive(false);
+    }
+
+    void DisableNoteText()
+    {
+        noteText.SetActive(false);
     }
 }
